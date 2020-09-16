@@ -197,3 +197,38 @@ You need to enable CORS support as described above, see https://github.com/datag
 [jsonrpc4j](https://github.com/briandilley/jsonrpc4j) 
  
 [dubbo procotol](http://www.dubbo.io/Protocol+Reference-zh.htm) 
+
+
+
+专用 spring boot 的maven依赖 
+```xml
+        <!-- Zookeeper dependencies -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <version>${dubbo.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qianmi</groupId>
+            <artifactId>dubbo-rpc-jsonrpc</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 引入Jetty容器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+```
