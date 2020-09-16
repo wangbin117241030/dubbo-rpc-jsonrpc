@@ -10,15 +10,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.springframework.remoting.RemoteAccessException;
 
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.remoting.http.HttpBinder;
-import com.alibaba.dubbo.remoting.http.HttpHandler;
-import com.alibaba.dubbo.remoting.http.HttpServer;
-import com.alibaba.dubbo.rpc.RpcContext;
-import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.protocol.AbstractProxyProtocol;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.remoting.http.HttpBinder;
+import org.apache.dubbo.remoting.http.HttpHandler;
+import org.apache.dubbo.remoting.http.HttpServer;
+import org.apache.dubbo.rpc.RpcContext;
+import org.apache.dubbo.rpc.RpcException;
+import org.apache.dubbo.rpc.protocol.AbstractProxyProtocol;
 import com.googlecode.jsonrpc4j.HttpException;
 import com.googlecode.jsonrpc4j.JsonRpcClientException;
 import com.googlecode.jsonrpc4j.JsonRpcServer;
@@ -47,6 +48,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
         this.httpBinder = httpBinder;
     }
 
+    @Override
     public int getDefaultPort() {
         return 80;
     }
@@ -59,6 +61,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
             this.cors = cors;
         }
 
+        @Override
         public void handle(HttpServletRequest request, HttpServletResponse response)
                 throws IOException, ServletException {
             String uri = request.getRequestURI();
@@ -85,6 +88,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
 
     }
 
+    @Override
     protected <T> Runnable doExport(T impl, Class<T> type, URL url) throws RpcException {
         String addr = url.getIp() + ":" + url.getPort();
         HttpServer server = serverMap.get(addr);
@@ -102,6 +106,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
         };
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected <T> T doRefer(final Class<T> serviceType, URL url) throws RpcException {
         JsonProxyFactoryBean jsonProxyFactoryBean = new JsonProxyFactoryBean();
@@ -112,6 +117,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
         return (T) jsonProxyFactoryBean.getObject();
     }
 
+    @Override
     protected int getErrorCode(Throwable e) {
         if (e instanceof RemoteAccessException) {
             e = e.getCause();
@@ -129,6 +135,7 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
         return super.getErrorCode(e);
     }
 
+    @Override
     public void destroy() {
         super.destroy();
         for (String key : new ArrayList<>(serverMap.keySet())) {

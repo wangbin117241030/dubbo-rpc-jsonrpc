@@ -6,14 +6,14 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.logger.Logger;
-import com.alibaba.dubbo.common.logger.LoggerFactory;
-import com.alibaba.dubbo.common.utils.NetUtils;
-import com.alibaba.dubbo.remoting.http.HttpHandler;
-import com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet;
-import com.alibaba.dubbo.remoting.http.support.AbstractHttpServer;
+import org.apache.dubbo.common.constants.CommonConstants;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.logger.Logger;
+import org.apache.dubbo.common.logger.LoggerFactory;
+import org.apache.dubbo.common.utils.NetUtils;
+import org.apache.dubbo.remoting.http.HttpHandler;
+import org.apache.dubbo.remoting.http.servlet.DispatcherServlet;
+import org.apache.dubbo.remoting.http.support.AbstractHttpServer;
 
 /**
  * @author sdcuike
@@ -29,7 +29,7 @@ public class JettyHttpServer extends AbstractHttpServer {
         super(url, handler);
         DispatcherServlet.addHttpHandler(url.getPort(), handler);
 
-        int threads = url.getParameter(Constants.THREADS_KEY, Constants.DEFAULT_THREADS);
+        int threads = url.getParameter(CommonConstants.THREADS_KEY, CommonConstants.DEFAULT_THREADS);
         QueuedThreadPool threadPool = new QueuedThreadPool();
         threadPool.setDaemon(true);
         threadPool.setMaxThreads(threads);
@@ -60,6 +60,7 @@ public class JettyHttpServer extends AbstractHttpServer {
         }
     }
 
+    @Override
     public void close() {
         super.close();
         if (server != null) {
