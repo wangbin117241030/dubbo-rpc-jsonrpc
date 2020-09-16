@@ -30,7 +30,7 @@ dubbo-rpc-jsonrpc
 <dependency>
     <groupId>com.qianmi</groupId>
     <artifactId>dubbo-rpc-jsonrpc</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0-SNAPSHOT</version>
 </dependency>
 
 ```
