@@ -66,7 +66,7 @@ Multi protocol:
 <dubbo:service id="helloService" interface="com.alibaba.hello.api.HelloService" version="1.0.0" protocol="dubbo,jsonrpc" />
 ```
 
-yml文件配置
+yml文件配置 dubbo协议和jsonrpc协议
 ```xml
 dubbo:
   scan:
