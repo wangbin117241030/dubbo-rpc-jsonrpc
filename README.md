@@ -66,6 +66,22 @@ Multi protocol:
 <dubbo:service id="helloService" interface="com.alibaba.hello.api.HelloService" version="1.0.0" protocol="dubbo,jsonrpc" />
 ```
 
+yml文件配置
+```xml
+dubbo:
+  scan:
+    base-packages: com.gjzq.gdsy.modules.*
+  protocols:
+    dubbo:
+      name: dubbo
+      port: 12346
+    jsonrpc:
+      name: jsonrpc
+      port: 12347
+      server: jetty9
+  registry:
+    address: zookeeper://127.0.0.1:2181
+```
 
 Jetty Server: (default)
 ```xml
