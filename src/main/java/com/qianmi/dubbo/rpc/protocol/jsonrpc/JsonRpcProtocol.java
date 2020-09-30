@@ -34,6 +34,9 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
     public static final String ACCESS_CONTROL_ALLOW_METHODS_HEADER = "Access-Control-Allow-Methods";
     public static final String ACCESS_CONTROL_ALLOW_HEADERS_HEADER = "Access-Control-Allow-Headers";
 
+    // added by wangbin 20200929 强制编码格式为UTF-8
+    public static final String CONTENT_TYPE = "text/html;charset=utf-8";
+    
     private final Map<String, HttpServer> serverMap = new ConcurrentHashMap<>();
 
     private final Map<String, JsonRpcServer> skeletonMap = new ConcurrentHashMap<>();
@@ -71,6 +74,9 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
                 response.setHeader(ACCESS_CONTROL_ALLOW_METHODS_HEADER, "POST");
                 response.setHeader(ACCESS_CONTROL_ALLOW_HEADERS_HEADER, "*");
             }
+            
+            response.setContentType(CONTENT_TYPE);
+            
             if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
                 response.setStatus(200);
             } else if (request.getMethod().equalsIgnoreCase("POST")) {
